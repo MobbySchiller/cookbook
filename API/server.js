@@ -4,7 +4,8 @@ const db = require('./app/models');
 const routes = require('./app/routes/recipesRoutes')
 
 const app = express();
-
+const { swaggerUi, swaggerSpec } = require('./swaggerConfig');
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(cors());
 
 app.use(express.json());

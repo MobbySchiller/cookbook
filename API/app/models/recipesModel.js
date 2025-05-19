@@ -18,13 +18,13 @@ module.exports = (sequelize, Sequelize) => {
         servings: {
             type: Sequelize.INTEGER
         },
-        mealTypeId: {
-            type: Sequelize.INTEGER,
-            field: 'meal_type_id' 
-        },
         authorId: {
             type: Sequelize.INTEGER,
             field: 'author_id' 
+        },
+        imageUrl: {
+            type: Sequelize.INTEGER,
+            field: 'image_url' 
         },
         createdAt: {
             type: Sequelize.DATE,

@@ -5,10 +5,9 @@ module.exports = (app) => {
         res.json({message:"Hello - Your Server lives!!!"});
     });
 
-    app.post('/api/events', recipes.create);
+    app.post('/api/recipes', recipes.create);
     app.get('/api/recipes', recipes.findAll);
-    app.get('/api/events/:id', recipes.findOne);
-    app.put('/api/events/:id', recipes.update);
-    app.delete('/api/events/:id', recipes.delete);
-    app.get('/api/events/title/:title', recipes.findByTitle);
+    app.get('/api/recipes/:id', recipes.findOne);
+    app.put('/api/recipes/:id', recipes.update);
+    app.delete('/api/recipes/:id', recipes.delete);
 }

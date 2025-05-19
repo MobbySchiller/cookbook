@@ -4,9 +4,9 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
-    operatorsAliases:false,
+    operatorsAliases: false,
     pool: {
-        max:dbConfig.pool.max,
+        max: dbConfig.pool.max,
         min: dbConfig.pool.min,
         acquire: dbConfig.pool.acquire,
         idle: dbConfig.pool.idle
@@ -19,5 +19,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.recipes = require("./recipesModel.js")(sequelize, Sequelize);
+db.mealTypes = require("./mealTypesModel.js")(sequelize, Sequelize); // Dodaj ten plik
+
+db.recipes.belongsTo(db.mealTypes, { foreignKey: 'meal_type_id',as:'mealType' });
+db.mealTypes.hasMany(db.recipes, { foreignKey: 'meal_type_id',as:'recipes' });
 
 module.exports = db;
