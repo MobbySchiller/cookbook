@@ -19,9 +19,14 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.recipes = require("./recipesModel.js")(sequelize, Sequelize);
-db.mealTypes = require("./mealTypesModel.js")(sequelize, Sequelize); // Dodaj ten plik
+db.mealTypes = require("./mealTypesModel.js")(sequelize, Sequelize); 
+db.recipeIngredients = require('./recipeIngredientsModel.js')(sequelize, Sequelize);
+db.recipeSteps = require('./recipeStepsModel.js')(sequelize, Sequelize);
 
 db.recipes.belongsTo(db.mealTypes, { foreignKey: 'meal_type_id',as:'mealType' });
 db.mealTypes.hasMany(db.recipes, { foreignKey: 'meal_type_id',as:'recipes' });
+
+db.recipes.hasMany(db.recipeIngredients, { foreignKey: 'recipe_id', as: 'ingredients' });
+db.recipes.hasMany(db.recipeSteps, { foreignKey: 'recipe_id', as: 'steps' });
 
 module.exports = db;
