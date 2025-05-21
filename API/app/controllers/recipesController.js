@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
   } = req.body;
 
   try {
-    const newRecipe = await db.recipes.create({
+    const newRecipe = await Recipes.create({
       name,
       description,
       prepTimeMin,
@@ -41,8 +41,8 @@ exports.create = async (req, res) => {
       title: item.title
     }));
 
-    await db.recipeIngredients.bulkCreate(ingredientsData);
-    await db.recipeSteps.bulkCreate(stepsData);
+    await RecipeIngredients.bulkCreate(ingredientsData);
+    await RecipeSteps.bulkCreate(stepsData);
 
     res.status(201).send({
       message: "Przepis został pomyślnie utworzony.",
