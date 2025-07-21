@@ -12,7 +12,7 @@ const generateToken = (payload, expiresIn = "1h") =>
   jwt.sign(payload, JWT_SECRET, { expiresIn });
 
 exports.register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, passwordRepeat } = req.body;
 
   try {
     const exists = await Users.findOne({ where: { email } });
