@@ -5,18 +5,71 @@
       class="flex flex-col justify-center rounded-lg border border-gray-200 bg-white p-6 shadow-xs w-full"
     >
       <h1 class="text-center font-serif font-semibold mb-4">Zaloguj się</h1>
-
-      <CInput v-model="login" class="mb-3" label="Login" id="login" />
-      <CInputPassword v-model="password" class="mb-5" label="Hasło" id="passoword" />
-      <CButtonPrimary color="primary">Zaloguj</CButtonPrimary>
+      <form @submit.prevent="onSubmit" class="flex flex-col">
+        <CInput
+          v-model="email"
+          ref="emailRef"
+          class="mb-3"
+          label="Email"
+          id="email"
+          type="email"
+          :rules="[required, validEmail]"
+        />
+        <CInputPassword
+          v-model="password"
+          ref="passwordRef"
+          class="mb-5"
+          label="Hasło"
+          id="password"
+          :rules="[required]"
+        />
+        <CButtonPrimary color="primary" type="submit">Zaloguj</CButtonPrimary>
+      </form>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import CInputPassword from '@/components/CInput/CInputPassword.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useValidation } from '@/composables/useValidation'
+import CInputPassword from '@/components/CInput/CInputPassword.vue'
+import { AuthService } from '@/api/Auth'
 
-const login = ref<string>('')
+const { required, validEmail, sameAs } = useValidation()
+const router = useRouter()
+
+const email = ref<string>('')
 const password = ref<string>('')
+
+const emailRef = ref()
+const passwordRef = ref()
+
+const loading = ref<boolean>(false)
+
+async function onSubmit() {
+  try {
+    loading.value = true
+    const isEmailValid = emailRef.value?.validate()
+    const isPasswordValid = passwordRef.value?.validate()
+
+    const isFormValid = isEmailValid && isPasswordValid
+
+    if (!isFormValid) {
+      console.warn('Formularz niepoprawny')
+      return
+    }
+
+    const request = {
+      email: email.value,
+      password: password.value,
+    }
+    await AuthService.login(request)
+    router.push({ name: 'Home' })
+  } catch (err) {
+    console.error(err.response.data.message)
+  } finally {
+    loading.value = false
+  }
+}
 </script>

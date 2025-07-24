@@ -30,6 +30,11 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DATE,
         field: "updated_at",
       },
+      guid: {
+        type: Sequelize.STRING(36),
+        allowNull: false,
+        unique: true,
+      },
     },
     { timestamps: false, underscored: true }
   );

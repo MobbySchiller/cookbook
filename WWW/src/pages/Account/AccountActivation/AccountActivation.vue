@@ -7,11 +7,32 @@
       <h1 class="text-center font-serif font-semibold mb-3">Aktywuj konto</h1>
 
       <p class="mb-4">Kliknij w poniższy przycisk, aby aktywować konto</p>
-      <CButtonAccent class="self-center">Aktywacja</CButtonAccent>
+      <CButtonAccent class="self-center" @click="handleClick" :loading>Aktywacja</CButtonAccent>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { AuthService } from '@/api/Auth'
 import CButtonAccent from '@/components/CButton/CButtonAccent.vue'
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+const token = route.query.token as string
+
+const loading = ref<boolean>(false)
+
+async function handleClick() {
+  try {
+    loading.value = true
+    await AuthService.verifyEmail(token)
+    router.push({ name: 'AccountActivated' })
+  } catch (err) {
+    // console.error(err.response.data.message)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
