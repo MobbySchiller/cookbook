@@ -35,7 +35,9 @@ import { useRouter } from 'vue-router'
 import { useValidation } from '@/composables/useValidation'
 import CInputPassword from '@/components/CInput/CInputPassword.vue'
 import { AuthService } from '@/api/Auth'
+import { useAlert } from '@/composables/useAlert'
 
+const alert = useAlert()
 const { required, validEmail, sameAs } = useValidation()
 const router = useRouter()
 
@@ -56,7 +58,7 @@ async function onSubmit() {
     const isFormValid = isEmailValid && isPasswordValid
 
     if (!isFormValid) {
-      console.warn('Formularz niepoprawny')
+      alert.show('danger', 'Niepoprawnie uzupełnione dane')
       return
     }
 
@@ -67,7 +69,7 @@ async function onSubmit() {
     await AuthService.login(request)
     router.push({ name: 'Home' })
   } catch (err) {
-    console.error(err.response.data.message)
+    alert.show('danger', err.response.data.message)
   } finally {
     loading.value = false
   }

@@ -1,12 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue'
 import AccountLayout from '@/layouts/AccountLayout/AccountLayout.vue'
-import HomeView from '../pages/HomeView/HomeView.vue'
-import SignIn from '@/pages/Account/SignIn/SignIn.vue'
-import SignUp from '@/pages/Account/SignUp/SignUp.vue'
-import SentEmail from '@/pages/Account/SentEmail/SentEmail.vue'
-import AccountActivation from '@/pages/Account/AccountActivation/AccountActivation.vue'
-import AccountActivated from '@/pages/Account/AccountActivated/AccountActivated.vue'
 import { useUserStore } from '@/stores/useUserStore'
 
 const router = createRouter({
@@ -19,7 +13,22 @@ const router = createRouter({
         {
           path: '',
           name: 'Home',
-          component: HomeView,
+          component: () => import('@/pages/Home/HomeView.vue'),
+        },
+        {
+          path: 'recipe',
+          children: [
+            {
+              path: ':id',
+              name: 'Recipe',
+              component: () => import('@/pages/Recipes/Recipe/RecipesRecipe.vue'),
+            },
+            {
+              path: 'search',
+              name: 'RecipesSearch',
+              component: () => import('@/pages/Recipes/Search/RecipesSearch.vue'),
+            },
+          ],
         },
       ],
     },
@@ -30,27 +39,27 @@ const router = createRouter({
         {
           path: '/sign-in',
           name: 'SignIn',
-          component: SignIn,
+          component: () => import('@/pages/Account/SignIn/SignIn.vue'),
         },
         {
           path: '/sign-up',
           name: 'SignUp',
-          component: SignUp,
+          component: () => import('@/pages/Account/SignUp/SignUp.vue'),
         },
         {
           path: '/sent-email',
           name: 'SentEmail',
-          component: SentEmail,
+          component: () => import('@/pages/Account/SentEmail/SentEmail.vue'),
         },
         {
           path: '/account-activation',
           name: 'AccountActivation',
-          component: AccountActivation,
+          component: () => import('@/pages/Account/AccountActivation/AccountActivation.vue'),
         },
         {
           path: '/account-activated',
           name: 'AccountActivated',
-          component: AccountActivated,
+          component: () => import('@/pages/Account/AccountActivated/AccountActivated.vue'),
         },
       ],
     },

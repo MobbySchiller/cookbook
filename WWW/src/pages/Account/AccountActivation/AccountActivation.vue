@@ -17,7 +17,9 @@ import { AuthService } from '@/api/Auth'
 import CButtonAccent from '@/components/CButton/CButtonAccent.vue'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useAlert } from '@/composables/useAlert'
 
+const alert = useAlert()
 const route = useRoute()
 const router = useRouter()
 const token = route.query.token as string
@@ -30,7 +32,7 @@ async function handleClick() {
     await AuthService.verifyEmail(token)
     router.push({ name: 'AccountActivated' })
   } catch (err) {
-    // console.error(err.response.data.message)
+    alert.show('danger', err.response.data.message)
   } finally {
     loading.value = false
   }

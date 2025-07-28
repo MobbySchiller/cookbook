@@ -52,6 +52,9 @@ import { ref } from 'vue'
 import { useValidation } from '@/composables/useValidation'
 
 import { AuthService } from '@/api/Auth'
+import { useAlert } from '@/composables/useAlert'
+
+const alert = useAlert()
 
 const { required, validEmail, sameAs } = useValidation()
 
@@ -78,11 +81,10 @@ async function onSubmit() {
     const isFormValid = isEmailValid && isUsernameValid && isPasswordValid && isConfirmValid
 
     if (!isFormValid) {
-      console.warn('Formularz niepoprawny')
+      alert.show('danger', 'Niepoprawnie uzupełnione dane')
       return
     }
 
-    console.log('Formularz poprawny:', { email: email.value, password: password.value })
     const request = {
       email: email.value,
       username: username.value,
@@ -90,8 +92,9 @@ async function onSubmit() {
       passwordRepeat: passwordRepeat.value,
     }
     await AuthService.register(request)
+    alert.show('success', 'Pomyślnie zarejestrowano')
   } catch (err) {
-    console.error(err.response.data.message)
+    alert.show('danger', err.response.data.message)
   } finally {
     loading.value = false
   }
