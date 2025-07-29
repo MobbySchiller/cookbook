@@ -6,18 +6,22 @@ const RecipeIngredients = db.recipeIngredients;
 const RecipeSteps = db.recipeSteps;
 
 exports.create = async (req, res) => {
-  const {
-    name,
-    description,
-    prepTimeMin,
-    servings,
-    authorId,
-    imageUrl,
-    ingredients,
-    steps,
-  } = req.body;
-
   try {
+    const { name, description } = req.body;
+
+    const prepTimeMin = parseInt(req.body.prepTimeMin, 10);
+    const servings = parseInt(req.body.servings, 10);
+    const mealTypeId = parseInt(req.body.mealTypeID, 10);
+    const ingredients = JSON.parse(req.body.ingredients);
+    const steps = JSON.parse(req.body.steps);
+
+    const authorId = req.user.id;
+
+    let imageUrl = null;
+    if (req.file && req.file.path) {
+      imageUrl = req.file.path;
+    }
+
     const newRecipe = await Recipes.create({
       name,
       description,
@@ -25,6 +29,7 @@ exports.create = async (req, res) => {
       servings,
       authorId,
       imageUrl,
+      mealTypeId,
     });
 
     const recipeId = newRecipe.id;
@@ -39,6 +44,7 @@ exports.create = async (req, res) => {
       recipe_id: recipeId,
       step_number: item.stepNumber,
       title: item.title,
+      description: item.description,
     }));
 
     await RecipeIngredients.bulkCreate(ingredientsData);
@@ -47,6 +53,7 @@ exports.create = async (req, res) => {
     res.status(201).send({
       message: "Przepis został pomyślnie utworzony.",
       recipeId,
+      imageUrl,
     });
   } catch (error) {
     console.error(error);
