@@ -26,7 +26,7 @@
         <p class="text-xs text-dark-300">Czas przygotowania: <span>1h</span></p>
         <!-- <p class="text-xs text-dark-300">Ilość składników: <span>15</span></p> -->
         <p class="text-xs text-dark-300">Liczba porcji: <span>4</span></p>
-        <p class="mt-2 text-xs text-dark-300">Autor: <span>Andrzej Wójcik</span></p>
+        <!-- <p class="mt-2 text-xs text-dark-300">Autor: <span>Andrzej Wójcik</span></p> -->
       </RouterLink>
     </div>
     <!-- <CButtonPrimary class="mt-3">Zobacz</CButtonPrimary> -->
