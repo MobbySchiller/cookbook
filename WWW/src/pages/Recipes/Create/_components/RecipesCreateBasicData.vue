@@ -29,6 +29,14 @@
         type="number"
         :rules="[required]"
       />
+      <CSelect
+        v-model="model.mealTypeId"
+        ref="mealTypeIdRef"
+        class="col-span-12 sm:col-span-6"
+        label="Rodzaj posiłku"
+        id="mealTypeId"
+        :options="mealTypeOptions"
+      />
     </div>
     <CDropzone v-model="model.image" class="col-span-12 lg:col-span-5 mt-6" />
   </div>
@@ -38,8 +46,18 @@
 import type { RecipesCreateRequest } from '@/api/Recipes'
 import { useValidation } from '@/composables/useValidation'
 import CDropzone from '@/components/CDropzone/CDropzone.vue'
+import CSelect from '@/components/CSelect/CSelect.vue'
+import { onMounted, ref } from 'vue'
+import { MealTypesService } from '@/api/MealTypes'
+import type { CookbookDictionaryItem } from '@/api/Cookbook'
 
 const { required } = useValidation()
 
 const model = defineModel<RecipesCreateRequest>({ required: true })
+
+const mealTypeOptions = ref<CookbookDictionaryItem[]>([])
+
+onMounted(async () => {
+  mealTypeOptions.value = await MealTypesService.get()
+})
 </script>

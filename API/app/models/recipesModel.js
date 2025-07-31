@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
         field: "author_id",
       },
       imageUrl: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         field: "image_url",
       },
       createdAt: {
@@ -35,6 +35,10 @@ module.exports = (sequelize, Sequelize) => {
       updatedAt: {
         type: Sequelize.DATE,
         field: "updated_at",
+      },
+      mealTypeId: {
+        type: Sequelize.INTEGER,
+        field: "meal_type_id",
       },
     },
     { timestamps: false }

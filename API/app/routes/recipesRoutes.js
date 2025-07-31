@@ -9,8 +9,8 @@ module.exports = (app) => {
     uploadCloudinaryMiddleware.single("image"),
     recipes.create
   );
-  app.get("/api/recipes", authMiddleware, recipes.findAll);
-  app.get("/api/recipes/:id", authMiddleware, recipes.findOne);
-  app.put("/api/recipes/:id", authMiddleware, recipes.update);
+  app.get("/api/recipes", recipes.findAll);
+  app.get("/api/recipes/:id", recipes.findOne);
+  app.put("/api/recipes/:id", recipes.update);
   app.delete("/api/recipes/:id", authMiddleware, recipes.delete);
 };

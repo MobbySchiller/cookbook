@@ -31,9 +31,11 @@ const model = ref<RecipesCreateRequest>({
   image: null,
   ingredients: [{ name: '', quantity: undefined }],
   steps: [{ stepNumber: 1, title: '', description: '' }],
+  mealTypeId: null,
 })
 
 async function submit() {
+  console.log(model.value)
   await RecipesService.create(model.value)
 }
 </script>

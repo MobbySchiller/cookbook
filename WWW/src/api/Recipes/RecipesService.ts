@@ -1,8 +1,8 @@
 import api from '@/boot/axios'
-import type { RecipesCreateRequest, RecipesSearchRequest } from './RecipesTypes'
+import type { Recipe, RecipesCreateRequest, RecipesSearchRequest } from './RecipesTypes'
 
 export const RecipesService = {
-  search: async (data?: RecipesSearchRequest): Promise<void> => {
+  search: async (data?: RecipesSearchRequest): Promise<Recipe[]> => {
     const response = await api.get('/recipes', { params: { data } })
     return response.data
   },
@@ -12,6 +12,7 @@ export const RecipesService = {
     formData.append('name', data.name)
     formData.append('description', data.description)
     formData.append('prepTimeMin', data.prepTimeMin.toString())
+    formData.append('mealTypeId', data.mealTypeId.toString())
     formData.append('servings', data.servings.toString())
     formData.append('ingredients', JSON.stringify(data.ingredients))
     formData.append('steps', JSON.stringify(data.steps))

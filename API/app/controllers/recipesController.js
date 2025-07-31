@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
 
     const prepTimeMin = parseInt(req.body.prepTimeMin, 10);
     const servings = parseInt(req.body.servings, 10);
-    const mealTypeId = parseInt(req.body.mealTypeID, 10);
+    const mealTypeId = parseInt(req.body.mealTypeId, 10);
     const ingredients = JSON.parse(req.body.ingredients);
     const steps = JSON.parse(req.body.steps);
 
@@ -140,10 +140,8 @@ exports.findOne = async (req, res) => {
 
     const data = recipe.toJSON();
 
-    // Uprość mealType do stringa
     data.mealType = data.mealType?.name || null;
 
-    // Zamień step_number → stepNumber
     data.steps = data.steps?.map((step) => ({
       ...step,
       stepNumber: step.step_number,
