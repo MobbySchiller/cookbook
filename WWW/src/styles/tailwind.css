@@ -3,6 +3,7 @@
 @theme {
   --font-sans: 'Inter', 'sans-serif';
   --font-serif: 'Petrona', 'serif';
+  --font-hand: 'Kalam', 'serif';
 
   /* primary */
   --color-primary: #fbc056;

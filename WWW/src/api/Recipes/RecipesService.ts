@@ -28,4 +28,8 @@ export const RecipesService = {
     })
     return response.data
   },
+  getRecipe: async (id: string): Promise<Recipe> => {
+    const response = await api.get(`/recipes/${id}`)
+    return response.data
+  },
 }

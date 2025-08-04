@@ -1,5 +1,9 @@
 @import './tailwind.css';
 
+:root {
+  --page-height: calc(100dvh - 60px);
+}
+
 body {
   font-family: 'Inter', 'sans-serif';
   color: #262626;

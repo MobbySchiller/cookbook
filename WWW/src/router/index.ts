@@ -22,6 +22,9 @@ const router = createRouter({
               path: ':id',
               name: 'Recipe',
               component: () => import('@/pages/Recipes/Recipe/RecipesRecipe.vue'),
+              meta: {
+                lightBg: true,
+              },
             },
             {
               path: 'create',

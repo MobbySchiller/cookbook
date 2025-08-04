@@ -1,12 +1,12 @@
 <template>
   <div class="w-full max-w-sm">
-    <RouterLink :to="{ name: 'Recipe', params: { id } }">
+    <RouterLink :to="{ name: 'Recipe', params: { id: recipe.id } }">
       <div class="w-full aspect-[3/2] overflow-hidden">
         <img :src="recipe.imageUrl" alt="Opis" class="object-cover w-full h-full rounded-md" />
       </div>
     </RouterLink>
     <div class="flex justify-between mt-2">
-      <RouterLink :to="{ name: 'Recipe', params: { id } }">
+      <RouterLink :to="{ name: 'Recipe', params: { id: recipe.id } }">
         <div>
           <p class="text-xs text-dark-300">{{ recipe.mealType }}</p>
           <p class="text-md font-semibold">{{ recipe.name }}</p>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="mt-1">
-      <RouterLink :to="{ name: 'Recipe', params: { id } }">
+      <RouterLink :to="{ name: 'Recipe', params: { id: recipe.id } }">
         <p class="text-xs text-dark-300">
           Czas przygotowania: <span>{{ recipe.prepTimeMin }} min.</span>
         </p>
@@ -39,8 +39,6 @@ import type { Recipe } from '@/api/Recipes'
 const isAddedToFavourite = ref<boolean>(false)
 
 defineProps<{ recipe: Recipe }>()
-
-const id = 2
 
 function toggleHeart() {
   isAddedToFavourite.value = !isAddedToFavourite.value
