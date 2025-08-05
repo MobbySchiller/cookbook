@@ -1,6 +1,8 @@
 export interface RecipesSearchRequest {
   name?: string
   mealTypeId?: number
+  page?: number
+  limit?: number
 }
 
 export interface RecipesCreateRequest {
@@ -35,4 +37,23 @@ export interface Recipe {
   ingredients: RecipeIngredient[]
   steps: RecipeStep[]
   mealType: string
+}
+
+export interface RecipePagination {
+  currentPage: number
+  limit: number
+  totalItems: number
+  totalPages: number
+}
+
+export interface RecipeSearchResponse {
+  data: Recipe[]
+  pagination: RecipePagination
+}
+
+export enum RecipesMealTypes {
+  BREAKFAST = 1,
+  DINNER,
+  SUPPER,
+  DESSERT,
 }

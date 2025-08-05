@@ -64,7 +64,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-  const { name, mealTypeId } = req.query;
+  const { name, mealTypeId, page = 1, limit = 10 } = req.query;
 
   const recipeConditions = {};
 
@@ -75,8 +75,12 @@ exports.findAll = async (req, res) => {
     recipeConditions.meal_type_id = mealTypeId;
   }
 
+  const parsedPage = parseInt(page, 10);
+  const parsedLimit = parseInt(limit, 10);
+  const offset = (parsedPage - 1) * parsedLimit;
+
   try {
-    const data = await Recipes.findAll({
+    const { rows: data, count: totalItems } = await Recipes.findAndCountAll({
       where: recipeConditions,
       attributes: {
         exclude: ["mealTypeId", "meal_type_id"],
@@ -88,6 +92,8 @@ exports.findAll = async (req, res) => {
           attributes: ["name"],
         },
       ],
+      limit: parsedLimit,
+      offset,
     });
 
     const formatted = data.map((recipe) => {
@@ -96,7 +102,15 @@ exports.findAll = async (req, res) => {
       return json;
     });
 
-    res.send(formatted);
+    res.send({
+      data: formatted,
+      pagination: {
+        totalItems,
+        currentPage: parsedPage,
+        totalPages: Math.ceil(totalItems / parsedLimit),
+        limit: parsedLimit,
+      },
+    });
   } catch (err) {
     res.status(500).send({
       message: err.message || "Wystąpił błąd podczas pobierania przepisów.",

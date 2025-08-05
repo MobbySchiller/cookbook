@@ -1,8 +1,12 @@
 <template>
   <div class="w-full max-w-sm">
     <RouterLink :to="{ name: 'Recipe', params: { id: recipe.id } }">
-      <div class="w-full aspect-[3/2] overflow-hidden">
-        <img :src="recipe.imageUrl" alt="Opis" class="object-cover w-full h-full rounded-md" />
+      <div class="w-full aspect-[3/2] overflow-hidden rounded-md">
+        <img
+          :src="recipe.imageUrl"
+          alt="Opis"
+          class="object-cover w-full h-full rounded-md hover:scale-105 transition-scale duration-400"
+        />
       </div>
     </RouterLink>
     <div class="flex justify-between mt-2">
