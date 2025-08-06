@@ -42,7 +42,7 @@ exports.create = async (req, res) => {
 
     const stepsData = steps.map((item) => ({
       recipe_id: recipeId,
-      step_number: item.stepNumber,
+      step_number: parseInt(item.stepNumber, 10),
       title: item.title,
       description: item.description,
     }));
@@ -65,8 +65,67 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   const { name, mealTypeId, page = 1, limit = 10 } = req.query;
-
   const recipeConditions = {};
+
+  if (name) {
+    recipeConditions.name = { [Op.like]: `%${name}%` };
+  }
+  if (mealTypeId) {
+    recipeConditions.meal_type_id = mealTypeId;
+  }
+
+  const parsedPage = parseInt(page, 10);
+  const parsedLimit = parseInt(limit, 10);
+  const offset = (parsedPage - 1) * parsedLimit;
+
+  try {
+    const { rows: data, count: totalItems } = await Recipes.findAndCountAll({
+      where: recipeConditions,
+      attributes: {
+        exclude: ["mealTypeId", "meal_type_id"],
+      },
+      include: [
+        {
+          model: MealTypes,
+          as: "mealType",
+          attributes: ["name"],
+        },
+      ],
+      limit: parsedLimit,
+      offset,
+    });
+
+    const formatted = data.map((recipe) => {
+      const json = recipe.toJSON();
+      json.mealType = json.mealType?.name || null;
+      return json;
+    });
+
+    res.send({
+      data: formatted,
+      pagination: {
+        totalItems,
+        currentPage: parsedPage,
+        totalPages: Math.ceil(totalItems / parsedLimit),
+        limit: parsedLimit,
+      },
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Wystąpił błąd podczas pobierania przepisów.",
+    });
+  }
+};
+
+exports.findUserRecipes = async (req, res) => {
+  const { name, mealTypeId, page = 1, limit = 10 } = req.query;
+  const recipeConditions = {};
+
+  const userId = req.user.id;
+  if (!userId) {
+    return res.status(401).send({ message: "Nieautoryzowany dostęp." });
+  }
+  recipeConditions.author_id = userId;
 
   if (name) {
     recipeConditions.name = { [Op.like]: `%${name}%` };

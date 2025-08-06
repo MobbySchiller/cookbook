@@ -36,6 +36,11 @@ const router = createRouter({
               name: 'RecipesSearch',
               component: () => import('@/pages/Recipes/Search/RecipesSearch.vue'),
             },
+            {
+              path: 'your',
+              name: 'RecipesYour',
+              component: () => import('@/pages/Recipes/Your/RecipesYour.vue'),
+            },
           ],
         },
       ],
