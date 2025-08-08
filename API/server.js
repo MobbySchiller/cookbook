@@ -5,6 +5,7 @@ const db = require("./app/models");
 const authRoutes = require("./app/routes/authRoutes");
 const recipesRoutes = require("./app/routes/recipesRoutes");
 const mealTypesRoutes = require("./app/routes/mealTypesRoutes");
+const userFavouriteRecipeRoutes = require("./app/routes/userFavouriteRecipeRoutes");
 
 const app = express();
 const { swaggerUi, swaggerSpec } = require("./swaggerConfig");
@@ -31,6 +32,7 @@ db.sequelize
 authRoutes(app);
 recipesRoutes(app);
 mealTypesRoutes(app);
+userFavouriteRecipeRoutes(app);
 
 app.listen(5000, () => {
   console.log("Server has started!");

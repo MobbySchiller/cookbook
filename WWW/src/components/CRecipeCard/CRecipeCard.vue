@@ -16,8 +16,8 @@
           <p class="text-md font-semibold">{{ recipe.name }}</p>
         </div>
       </RouterLink>
-      <button @click.stop="toggleHeart" class="self-start cursor-pointer">
-        <img :src="isAddedToFavourite ? heart_filled : heart_outlined" />
+      <button @click.stop="toggleFavourites" class="self-start cursor-pointer">
+        <img :src="isAddedToFavourites ? heart_filled : heart_outlined" />
       </button>
     </div>
 
@@ -35,16 +35,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import heart_filled from '@/assets/icons/heart_filled.svg'
 import heart_outlined from '@/assets/icons/heart_outlined.svg'
 import type { Recipe } from '@/api/Recipes'
+import { FavouritesService } from '@/api/Favourites'
 
-const isAddedToFavourite = ref<boolean>(false)
+import { useUserStore } from '@/stores/useUserStore'
 
-defineProps<{ recipe: Recipe }>()
+const { isInFavourites, fetchFavouriteIds } = useUserStore()
+const props = defineProps<{ recipe: Recipe }>()
 
-function toggleHeart() {
-  isAddedToFavourite.value = !isAddedToFavourite.value
+const isAddedToFavourites = computed(() => isInFavourites(props.recipe.id))
+
+async function toggleFavourites() {
+  if (isAddedToFavourites.value) {
+    await FavouritesService.removeFromFavourites(props.recipe.id)
+  } else {
+    await FavouritesService.addToFavourites(props.recipe.id)
+  }
+  await fetchFavouriteIds()
 }
 </script>

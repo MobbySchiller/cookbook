@@ -14,6 +14,9 @@ const router = createRouter({
           path: '',
           name: 'Home',
           component: () => import('@/pages/Home/HomeView.vue'),
+          meta: {
+            lightBg: true,
+          },
         },
         {
           path: 'recipe',
@@ -37,9 +40,14 @@ const router = createRouter({
               component: () => import('@/pages/Recipes/Search/RecipesSearch.vue'),
             },
             {
-              path: 'your',
-              name: 'RecipesYour',
-              component: () => import('@/pages/Recipes/Your/RecipesYour.vue'),
+              path: 'yours',
+              name: 'RecipesYours',
+              component: () => import('@/pages/Recipes/Yours/RecipesYours.vue'),
+            },
+            {
+              path: 'favourites',
+              name: 'RecipesFavourites',
+              component: () => import('@/pages/Recipes/Favourites/RecipesFavourites.vue'),
             },
           ],
         },

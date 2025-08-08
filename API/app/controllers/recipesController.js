@@ -47,6 +47,8 @@ exports.create = async (req, res) => {
       description: item.description,
     }));
 
+    res.send(stepsData);
+
     await RecipeIngredients.bulkCreate(ingredientsData);
     await RecipeSteps.bulkCreate(stepsData);
 

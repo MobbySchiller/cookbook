@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white px-6 py-6 relative paper">
+  <div class="bg-white px-6 py-6 relative paper rounded-md">
     <h2 class="font-serif mb-2 text-xl underline">Składniki</h2>
     <ul class="ps-5 space-y-1 list-disc">
       <li

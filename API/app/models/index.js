@@ -27,12 +27,20 @@ db.recipeIngredients = require("./recipeIngredientsModel.js")(
   Sequelize
 );
 db.recipeSteps = require("./recipeStepsModel.js")(sequelize, Sequelize);
+db.userFavouriteRecipe = require("./userFavouriteRecipeModel.js")(
+  sequelize,
+  Sequelize
+);
 
 db.recipes.belongsTo(db.mealTypes, {
   foreignKey: "meal_type_id",
   as: "mealType",
 });
 db.mealTypes.hasMany(db.recipes, { foreignKey: "meal_type_id", as: "recipes" });
+db.userFavouriteRecipe.belongsTo(db.recipes, {
+  foreignKey: "recipe_id",
+  as: "recipe",
+});
 
 db.recipes.hasMany(db.recipeIngredients, {
   foreignKey: "recipe_id",

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white mb-4 px-6 py-6">
+  <div class="bg-white mb-4 px-6 py-6 rounded-md">
     <!-- <div class="text-3xl font-semibold py-5 text-center font-serif">{{ recipe?.name }}</div> -->
     <div class="grid grid-cols-12 gap-4 divide-x divide-dark-100">
       <div class="col-span-12 md:col-span-6">

@@ -1,5 +1,8 @@
 <template>
-  <div class="my-2">
+  <div class="py-2">
+    <form @submit.prevent="onSubmit">
+      <CSearchBar v-model="searchPhrase" v-model:mealType="selectedMealType" @onSubmit="onSubmit" />
+    </form>
     <HomeMealTypeSection
       title="Śniadanie"
       :recipes="recipesBreakfast"
@@ -26,14 +29,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { RecipesMealTypes, RecipesService, type Recipe } from '@/api/Recipes'
-import MainRecipeCard from './_components/MainRecipeCard.vue'
-import CRecipeCard from '@/components/CRecipeCard/CRecipeCard.vue'
-import CButtonPrimary from '@/components/CButton/CButtonPrimary.vue'
-import { RouterLink } from 'vue-router'
 import HomeMealTypeSection from './_components/HomeMealTypeSection.vue'
+import CSearchBar from '@/components/CSearchBar/CSearchBar.vue'
+import { useRouter } from 'vue-router'
 
-const recipes = ref<Recipe[]>([])
+const router = useRouter()
 
+const searchPhrase = ref<string>('')
+const selectedMealType = ref<number | null>(null)
 const recipesBreakfast = ref<Recipe[]>([])
 const recipesDinner = ref<Recipe[]>([])
 const recipesSupper = ref<Recipe[]>([])
@@ -54,6 +57,23 @@ async function fetchSupper() {
 async function fetchDessert() {
   const response = await RecipesService.search({ mealTypeId: RecipesMealTypes.DESSERT, limit: 4 })
   recipesDessert.value = response.data
+}
+
+function onSubmit() {
+  const query: Record<string, string | number> = {}
+
+  if (searchPhrase.value.trim() !== '') {
+    query.searchPhrase = searchPhrase.value
+  }
+
+  if (selectedMealType.value !== null) {
+    query.mealTypeId = selectedMealType.value
+  }
+
+  router.push({
+    name: 'RecipesSearch',
+    query,
+  })
 }
 
 onMounted(async () => {

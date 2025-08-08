@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white px-6 py-6 relative paper">
+  <div class="bg-white px-6 py-6 relative paper rounded-md">
     <h2 class="font-serif mb-2 text-xl underline">Przygotowanie</h2>
     <table class="w-full table-fixed">
       <tr v-for="(step, index) in steps" :key="`${step.title}_${step.stepNumber}`">

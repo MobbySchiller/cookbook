@@ -1,6 +1,6 @@
 <template>
   <MainLayoutHeader />
-  <div class="min-h-(--page-height)" :class="route.meta.lightBg ? 'bg-light' : 'bg-white'">
+  <div class="min-h-(--page-height)" :class="route.meta.lightBg ? 'bg-light-50' : 'bg-white'">
     <main class="mx-auto max-w-screen-xl">
       <router-view></router-view>
     </main>

@@ -1,6 +1,6 @@
 <template>
   <div class="pt-4">
-    <RecipesRecipeHeader :recipe />
+    <RecipesRecipeHeader v-if="recipe" :recipe />
   </div>
   <!-- <div class="grid grid-cols-12 md:bg-light rounded-md">
     <div class="col-span-12 md:col-span-6 order-last md:order-first bg-light rounded-md">
@@ -16,10 +16,10 @@
   </div> -->
   <div class="grid grid-cols-12 gap-4">
     <div class="col-span-12 md:col-span-6 lg:col-span-5 xl:col-span-4">
-      <RecipesRecipeIngredients :ingredients="recipe?.ingredients" />
+      <RecipesRecipeIngredients v-if="recipe" :ingredients="recipe?.ingredients" />
     </div>
     <div class="col-span-12 md:col-span-6 lg:col-span-7 xl:col-span-8">
-      <RecipesRecipeSteps :steps="recipe?.steps" />
+      <RecipesRecipeSteps v-if="recipe" :steps="recipe?.steps" />
     </div>
   </div>
 </template>
