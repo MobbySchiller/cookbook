@@ -1,5 +1,5 @@
 <template>
-  <h2 class="mt-8 mb-4 font-serif text-2xl">{{ title }}</h2>
+  <h2 class="mt-8 mb-3 font-serif text-2xl">{{ title }}</h2>
 
   <div class="flex justify-center xl:mx-0">
     <div class="grid grid-cols-12 gap-6">
@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import type { Recipe, RecipesMealTypes } from '@/api/Recipes'
 import CRecipeCard from '@/components/CRecipeCard/CRecipeCard.vue'
+import CRecipeCardSkeleton from '@/components/CRecipeCard/CRecipeCardSkeleton.vue'
 
 defineProps<{ title: string; recipes: Recipe[]; mealTypeId: RecipesMealTypes }>()
 </script>

@@ -35,7 +35,6 @@ const model = ref<RecipesCreateRequest>({
 })
 
 async function submit() {
-  console.log(model.value)
   await RecipesService.create(model.value)
 }
 </script>

@@ -2,8 +2,10 @@
   <form @submit.prevent="onSubmit" novalidate>
     <CSearchBar v-model="searchPhrase" v-model:mealType="selectedMealType" @onSubmit="onSubmit" />
   </form>
-  <h2 class="mt-8 mb-4 font-serif text-2xl">Wyniki wyszukiwania</h2>
-  <div class="flex justify-center mx-4 xl:mx-0 mt-5">
+  <h2 class="mt-8 mb-3 font-serif text-2xl">
+    {{ searchedRecipes.length ? 'Wyniki wyszukiwania' : 'Nie znaleziono przepisów' }}
+  </h2>
+  <div class="flex justify-center xl:mx-0">
     <div class="grid grid-cols-12 gap-6">
       <CRecipeCard
         v-for="recipe in searchedRecipes"
@@ -45,10 +47,9 @@ async function searchRecipes(searchPhrase: string, mealTypeId: number | undefine
 
 onMounted(async () => {
   searchPhrase.value = route.query.searchPhrase as string
-  selectedMealType.value = Number(route.query.mealTypeId)
-  if (searchPhrase.value) {
-    await searchRecipes(searchPhrase.value, selectedMealType.value)
-  }
+  selectedMealType.value = route.query.mealTypeId ? Number(route.query.mealTypeId) : undefined
+
+  await searchRecipes(searchPhrase.value, selectedMealType.value)
 })
 
 watch(

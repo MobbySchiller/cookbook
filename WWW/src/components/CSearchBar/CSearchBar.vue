@@ -23,14 +23,14 @@ const selectedMealType = defineModel<number | null>('mealType')
 const emit = defineEmits(['onSubmit'])
 
 const mealTypes = [
-  { id: null, name: 'wszystko' },
+  { id: undefined, name: 'wszystko' },
   { id: 1, name: 'śniadanie' },
   { id: 2, name: 'obiad' },
   { id: 3, name: 'kolacja' },
   { id: 4, name: 'deser' },
 ]
 
-function handleChip(id: number | null) {
+function handleChip(id: number | undefined) {
   selectedMealType.value = id
   emit('onSubmit')
 }

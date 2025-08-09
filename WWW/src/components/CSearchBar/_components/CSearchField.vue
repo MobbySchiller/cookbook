@@ -32,7 +32,7 @@
       type="submit"
       class="font-semibold border-primary-500 bg-primary border-1 text-dark cursor-pointer absolute end-2.5 bottom-2 hover:bg-primary-500 focus:ring-4 focus:outline-none focus:primary font-medium rounded-full text-sm px-4 py-2"
     >
-      Search
+      Szukaj
     </button>
   </div>
 </template>
