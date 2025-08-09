@@ -1,7 +1,7 @@
 <template>
-  <h2 class="mt-10 mb-4 font-serif text-2xl">{{ title }}</h2>
+  <h2 class="mt-8 mb-4 font-serif text-2xl">{{ title }}</h2>
 
-  <div class="flex justify-center mx-4 xl:mx-0">
+  <div class="flex justify-center xl:mx-0">
     <div class="grid grid-cols-12 gap-6">
       <CRecipeCard
         v-for="recipe in recipes"
@@ -11,7 +11,7 @@
       />
     </div>
   </div>
-  <div class="mt-5 text-center">
+  <div class="mt-2 text-center">
     <router-link
       :to="{ name: 'RecipesSearch', query: { mealTypeId } }"
       class="text-right text-sm text-accent hover:text-accent-700"

@@ -38,6 +38,9 @@ const router = createRouter({
               path: 'search',
               name: 'RecipesSearch',
               component: () => import('@/pages/Recipes/Search/RecipesSearch.vue'),
+              meta: {
+                lightBg: true,
+              },
             },
             {
               path: 'yours',

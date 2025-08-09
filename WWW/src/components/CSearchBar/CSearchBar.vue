@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white rounded-md px-8 py-8 mx-auto max-w-[800px] shadow-sm">
+  <div class="bg-white rounded-md px-4 md:px-8 py-8 mx-auto max-w-[800px] shadow-sm">
     <CSearchField v-model="searchPhrase" />
-    <div class="flex justify-center gap-2 mt-3">
+    <div class="flex justify-center flex-wrap gap-2 mt-5">
       <teamplate v-for="item in mealTypes" :key="`${item.name}`">
         <CSearchChip
           :label="item.name"

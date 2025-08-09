@@ -16,7 +16,7 @@
           <p class="text-md font-semibold">{{ recipe.name }}</p>
         </div>
       </RouterLink>
-      <button @click.stop="toggleFavourites" class="self-start cursor-pointer">
+      <button v-if="user" @click.stop="toggleFavourites" class="self-start cursor-pointer">
         <img :src="isAddedToFavourites ? heart_filled : heart_outlined" />
       </button>
     </div>
@@ -43,7 +43,7 @@ import { FavouritesService } from '@/api/Favourites'
 
 import { useUserStore } from '@/stores/useUserStore'
 
-const { isInFavourites, fetchFavouriteIds } = useUserStore()
+const { user, isInFavourites, fetchFavouriteIds } = useUserStore()
 const props = defineProps<{ recipe: Recipe }>()
 
 const isAddedToFavourites = computed(() => isInFavourites(props.recipe.id))

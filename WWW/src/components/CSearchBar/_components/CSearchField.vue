@@ -24,13 +24,13 @@
       v-model="model"
       type="search"
       id="default-search"
-      class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary"
+      class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-primary focus:border-primary"
       placeholder="Wyszukaj przepisu..."
       required
     />
     <button
       type="submit"
-      class="font-semibold border-primary-500 bg-primary border-1 text-dark cursor-pointer absolute end-2.5 bottom-2 hover:bg-primary-500 focus:ring-4 focus:outline-none focus:primary font-medium rounded-lg text-sm px-4 py-2"
+      class="font-semibold border-primary-500 bg-primary border-1 text-dark cursor-pointer absolute end-2.5 bottom-2 hover:bg-primary-500 focus:ring-4 focus:outline-none focus:primary font-medium rounded-full text-sm px-4 py-2"
     >
       Search
     </button>

@@ -1,29 +1,27 @@
 <template>
-  <div class="py-2">
-    <form @submit.prevent="onSubmit">
-      <CSearchBar v-model="searchPhrase" v-model:mealType="selectedMealType" @onSubmit="onSubmit" />
-    </form>
-    <HomeMealTypeSection
-      title="Śniadanie"
-      :recipes="recipesBreakfast"
-      :mealTypeId="RecipesMealTypes.BREAKFAST"
-    />
-    <HomeMealTypeSection
-      title="Obiad"
-      :recipes="recipesDinner"
-      :mealTypeId="RecipesMealTypes.DINNER"
-    />
-    <HomeMealTypeSection
-      title="Kolacja"
-      :recipes="recipesSupper"
-      :mealTypeId="RecipesMealTypes.SUPPER"
-    />
-    <HomeMealTypeSection
-      title="Deser"
-      :recipes="recipesDessert"
-      :mealTypeId="RecipesMealTypes.DESSERT"
-    />
-  </div>
+  <form @submit.prevent="onSubmit" novalidate>
+    <CSearchBar v-model="searchPhrase" v-model:mealType="selectedMealType" @onSubmit="onSubmit" />
+  </form>
+  <HomeMealTypeSection
+    title="Śniadanie"
+    :recipes="recipesBreakfast"
+    :mealTypeId="RecipesMealTypes.BREAKFAST"
+  />
+  <HomeMealTypeSection
+    title="Obiad"
+    :recipes="recipesDinner"
+    :mealTypeId="RecipesMealTypes.DINNER"
+  />
+  <HomeMealTypeSection
+    title="Kolacja"
+    :recipes="recipesSupper"
+    :mealTypeId="RecipesMealTypes.SUPPER"
+  />
+  <HomeMealTypeSection
+    title="Deser"
+    :recipes="recipesDessert"
+    :mealTypeId="RecipesMealTypes.DESSERT"
+  />
 </template>
 
 <script setup lang="ts">
