@@ -34,6 +34,13 @@ const searchedRecipes = ref<Recipe[]>([])
 function clearQueryParams() {
   router.replace({ name: 'RecipesSearch', query: {} })
 }
+function setQueryParams(searchPhrase: string, mealTypeId: number | undefined) {
+  if (searchPhrase) {
+    router.replace({ name: 'RecipesSearch', query: { searchPhrase, mealTypeId } })
+  } else {
+    router.replace({ name: 'RecipesSearch', query: { mealTypeId } })
+  }
+}
 
 async function onSubmit() {
   await searchRecipes(searchPhrase.value, selectedMealType.value)
@@ -42,7 +49,7 @@ async function onSubmit() {
 async function searchRecipes(searchPhrase: string, mealTypeId: number | undefined) {
   const response = await RecipesService.search({ name: searchPhrase, mealTypeId })
   searchedRecipes.value = response.data
-  clearQueryParams()
+  setQueryParams(searchPhrase, mealTypeId)
 }
 
 onMounted(async () => {

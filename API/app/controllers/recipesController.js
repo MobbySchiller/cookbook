@@ -4,6 +4,7 @@ const Recipes = db.recipes;
 const MealTypes = db.mealTypes;
 const RecipeIngredients = db.recipeIngredients;
 const RecipeSteps = db.recipeSteps;
+const Users = db.users;
 
 exports.create = async (req, res) => {
   try {
@@ -185,7 +186,7 @@ exports.findOne = async (req, res) => {
   try {
     const recipe = await Recipes.findByPk(id, {
       attributes: {
-        exclude: ["mealTypeId", "meal_type_id"],
+        exclude: ["mealTypeId", "meal_type_id", "authorId", "author_id"],
       },
       include: [
         {
@@ -204,6 +205,7 @@ exports.findOne = async (req, res) => {
           attributes: ["step_number", "title", "description"],
           order: [["step_number", "ASC"]],
         },
+        { model: Users, as: "author", attributes: ["username"] },
       ],
     });
 

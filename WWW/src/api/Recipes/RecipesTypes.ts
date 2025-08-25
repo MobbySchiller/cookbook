@@ -37,6 +37,7 @@ export interface Recipe {
   ingredients: RecipeIngredient[]
   steps: RecipeStep[]
   mealType: string
+  author: { username: string }
 }
 
 export interface RecipePagination {

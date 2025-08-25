@@ -41,7 +41,7 @@ db.userFavouriteRecipe.belongsTo(db.recipes, {
   foreignKey: "recipe_id",
   as: "recipe",
 });
-
+db.recipes.belongsTo(db.users, { foreignKey: "author_id", as: "author" });
 db.recipes.hasMany(db.recipeIngredients, {
   foreignKey: "recipe_id",
   as: "ingredients",

@@ -21,13 +21,13 @@
       </button>
     </div>
 
-    <div class="mt-1">
+    <div class="mt-2">
       <RouterLink :to="{ name: 'Recipe', params: { id: recipe.id } }">
-        <p class="text-xs text-dark-300">
-          Czas przygotowania: <span>{{ recipe.prepTimeMin }} min.</span>
+        <p class="text-xs text-dark-300 flex items-center gap-2">
+          <Clock class="w-4 h-4" /> <span>{{ recipe.prepTimeMin }} min.</span>
         </p>
-        <p class="text-xs text-dark-300">
-          Liczba porcji: <span>{{ recipe.servings }}</span>
+        <p class="text-xs text-dark-300 flex items-center gap-2 mt-1">
+          <Users class="w-4 h-4" /> <span>{{ recipe.servings }}</span>
         </p>
       </RouterLink>
     </div>
@@ -42,6 +42,7 @@ import type { Recipe } from '@/api/Recipes'
 import { FavouritesService } from '@/api/Favourites'
 
 import { useUserStore } from '@/stores/useUserStore'
+import { Clock, Users } from 'lucide-vue-next'
 
 const { user, isInFavourites, fetchFavouriteIds } = useUserStore()
 const props = defineProps<{ recipe: Recipe }>()
