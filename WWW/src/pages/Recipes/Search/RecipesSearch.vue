@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit" novalidate>
-    <CSearchBar v-model="searchPhrase" v-model:mealType="selectedMealType" @onSubmit="onSubmit" />
+    <CSearchBar v-model="searchPhrase" v-model:mealType="selectedMealType" />
   </form>
   <h2 class="mt-8 mb-3 font-serif text-2xl">
-    {{ searchedRecipes.length ? 'Wyniki wyszukiwania' : 'Nie znaleziono przepisów' }}
+    {{ searchedRecipes.length ? 'Wyniki wyszukiwania' : `Nie znaleziono przepisów` }}
   </h2>
   <div class="flex justify-center xl:mx-0">
     <div class="grid grid-cols-12 gap-6">
@@ -31,9 +31,6 @@ const searchPhrase = ref<string>('')
 const selectedMealType = ref<number | undefined>(undefined)
 const searchedRecipes = ref<Recipe[]>([])
 
-function clearQueryParams() {
-  router.replace({ name: 'RecipesSearch', query: {} })
-}
 function setQueryParams(searchPhrase: string, mealTypeId: number | undefined) {
   if (searchPhrase) {
     router.replace({ name: 'RecipesSearch', query: { searchPhrase, mealTypeId } })
@@ -58,11 +55,4 @@ onMounted(async () => {
 
   await searchRecipes(searchPhrase.value, selectedMealType.value)
 })
-
-watch(
-  () => selectedMealType.value,
-  async (newVal) => {
-    await searchRecipes(searchPhrase.value, newVal)
-  },
-)
 </script>

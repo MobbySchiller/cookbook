@@ -16,9 +16,7 @@
           <p class="text-md font-semibold">{{ recipe.name }}</p>
         </div>
       </RouterLink>
-      <button v-if="user" @click.stop="toggleFavourites" class="self-start cursor-pointer">
-        <img :src="isAddedToFavourites ? heart_filled : heart_outlined" />
-      </button>
+      <CFavouriteButton :recipeId="recipe.id" />
     </div>
 
     <div class="mt-2">
@@ -40,7 +38,7 @@ import heart_filled from '@/assets/icons/heart_filled.svg'
 import heart_outlined from '@/assets/icons/heart_outlined.svg'
 import type { Recipe } from '@/api/Recipes'
 import { FavouritesService } from '@/api/Favourites'
-
+import CFavouriteButton from '@/components/CButton/CFavouriteButton.vue'
 import { useUserStore } from '@/stores/useUserStore'
 import { Clock, Users } from 'lucide-vue-next'
 

@@ -1,17 +1,17 @@
 <template>
   <div class="bg-white px-6 py-6 relative paper rounded-md">
     <h2 class="font-serif mb-3 text-xl font-semibold">Składniki</h2>
-    <ul class="ps-5 space-y-1 list-disc pl-0">
+    <ul class="ps-5 space-y-1 list-disc pl-4">
       <li
         v-for="(ingredient, index) in ingredients"
         :key="`${ingredient.name}_${ingredient.quantity}`"
-        class="text-sm list-none"
+        class="text-sm"
       >
-        <!-- <span class="font-medium">{{ ingredient.name }}</span> - {{ ingredient.quantity }} -->
-        <CCheckbox
+        <span class="font-medium">{{ ingredient.name }}</span> - {{ ingredient.quantity }}
+        <!-- <CCheckbox
           ><span class="font-medium">{{ ingredient.name }}</span> -
           {{ ingredient.quantity }}</CCheckbox
-        >
+        > -->
       </li>
     </ul>
   </div>

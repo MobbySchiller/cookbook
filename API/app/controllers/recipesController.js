@@ -312,3 +312,22 @@ exports.delete = async (req, res) => {
     });
   }
 };
+
+exports.findUserRecipeIds = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const userRecipes = await Recipes.findAll({
+      where: { author_id: userId },
+    });
+
+    const recipeIds = userRecipes.map((item) => item.id);
+
+    res.status(200).send(recipeIds);
+  } catch (err) {
+    res.status(500).send({
+      message: "Błąd podczas pobierania przepisów użytkownika.",
+      error: err.message,
+    });
+  }
+};

@@ -33,6 +33,17 @@ const router = createRouter({
               path: 'create',
               name: 'RecipesCreate',
               component: () => import('@/pages/Recipes/Create/RecipesCreate.vue'),
+              meta: {
+                lightBg: true,
+              },
+            },
+            {
+              path: 'edit/:id',
+              name: 'RecipesEdit',
+              component: () => import('@/pages/Recipes/Create/RecipesCreate.vue'),
+              meta: {
+                lightBg: true,
+              },
             },
             {
               path: 'search',
@@ -46,11 +57,17 @@ const router = createRouter({
               path: 'yours',
               name: 'RecipesYours',
               component: () => import('@/pages/Recipes/Yours/RecipesYours.vue'),
+              meta: {
+                lightBg: true,
+              },
             },
             {
               path: 'favourites',
               name: 'RecipesFavourites',
               component: () => import('@/pages/Recipes/Favourites/RecipesFavourites.vue'),
+              meta: {
+                lightBg: true,
+              },
             },
           ],
         },

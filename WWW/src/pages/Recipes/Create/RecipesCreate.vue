@@ -2,13 +2,13 @@
   <div class="px-4">
     <div class="mt-8"><RecipesCreateBasicData v-model="model" /></div>
 
-    <div class="mt-8">
+    <div class="mt-14">
       <RecipesCreateIngredients v-model="model" />
     </div>
-    <div class="mt-8">
+    <div class="mt-14">
       <RecipesCreateSteps v-model="model" />
     </div>
-    <button @click="submit">Submit</button>
+    <CButtonAccent class="mt-6" @click="submit">Zapisz</CButtonAccent>
   </div>
 </template>
 
@@ -20,6 +20,7 @@ import RecipesCreateBasicData from './_components/RecipesCreateBasicData.vue'
 import RecipesCreateIngredients from './_components/RecipesCreateIngredients.vue'
 import RecipesCreateSteps from './_components/RecipesCreateSteps.vue'
 import { RecipesService } from '@/api/Recipes'
+import CButtonAccent from '@/components/CButton/CButtonAccent.vue'
 
 const { required } = useValidation()
 

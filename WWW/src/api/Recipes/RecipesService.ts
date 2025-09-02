@@ -15,6 +15,10 @@ export const RecipesService = {
     const response = await api.get('/recipes/user', { params: data })
     return response.data
   },
+  getUserRecipeIds: async (): Promise<number[]> => {
+    const response = await api.get('/recipes/user/ids')
+    return response.data
+  },
   create: async (data: RecipesCreateRequest): Promise<void> => {
     const formData = new FormData()
 
