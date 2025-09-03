@@ -10,7 +10,7 @@ export interface RecipesCreateRequest {
   description: string
   prepTimeMin?: number
   servings?: number
-  image: File | null
+  image?: File | null
   ingredients: RecipeIngredient[]
   steps: RecipeStep[]
   mealTypeId: number | null
@@ -37,6 +37,7 @@ export interface Recipe {
   ingredients: RecipeIngredient[]
   steps: RecipeStep[]
   mealType: string
+  mealTypeId: number
   author: { username: string }
 }
 

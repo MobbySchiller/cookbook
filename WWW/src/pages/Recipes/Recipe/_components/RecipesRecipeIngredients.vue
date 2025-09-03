@@ -8,10 +8,6 @@
         class="text-sm"
       >
         <span class="font-medium">{{ ingredient.name }}</span> - {{ ingredient.quantity }}
-        <!-- <CCheckbox
-          ><span class="font-medium">{{ ingredient.name }}</span> -
-          {{ ingredient.quantity }}</CCheckbox
-        > -->
       </li>
     </ul>
   </div>

@@ -186,7 +186,7 @@ exports.findOne = async (req, res) => {
   try {
     const recipe = await Recipes.findByPk(id, {
       attributes: {
-        exclude: ["mealTypeId", "meal_type_id", "authorId", "author_id"],
+        exclude: ["authorId", "author_id"],
       },
       include: [
         {
@@ -235,33 +235,42 @@ exports.findOne = async (req, res) => {
 
 exports.update = async (req, res) => {
   const id = req.params.id;
-  const {
-    name,
-    description,
-    prepTimeMin,
-    servings,
-    authorId,
-    imageUrl,
-    ingredients,
-    steps,
-  } = req.body;
 
   try {
-    const recipe = await Recipes.findByPk(id);
-    if (!recipe) {
-      return res.status(404).send({
-        message: `Nie znaleziono przepisu o id=${id}.`,
-      });
+    const { name, description } = req.body;
+
+    const prepTimeMin = parseInt(req.body.prepTimeMin, 10);
+    const servings = parseInt(req.body.servings, 10);
+    const mealTypeId = parseInt(req.body.mealTypeId, 10);
+    const ingredients = JSON.parse(req.body.ingredients);
+    const steps = JSON.parse(req.body.steps);
+
+    const authorId = req.user.id;
+
+    let imageUrl = null;
+    if (req.file && req.file.path) {
+      imageUrl = req.file.path;
     }
 
-    await recipe.update({
+    const recipe = await Recipes.findByPk(id);
+    if (!recipe) {
+      return res
+        .status(404)
+        .send({ message: `Nie znaleziono przepisu o id=${id}.` });
+    }
+    const updateData = {
       name,
       description,
-      prep_time_min: prepTimeMin,
+      prepTimeMin,
       servings,
-      author_id: authorId,
-      image_url: imageUrl,
-    });
+      authorId,
+      mealTypeId,
+    };
+    if (imageUrl) {
+      updateData.imageUrl = imageUrl;
+    }
+
+    await recipe.update(updateData);
 
     await RecipeIngredients.destroy({ where: { recipe_id: id } });
     await RecipeSteps.destroy({ where: { recipe_id: id } });
@@ -275,16 +284,21 @@ exports.update = async (req, res) => {
 
     const stepsData = steps.map((item) => ({
       recipe_id: id,
-      step_number: item.stepNumber,
+      step_number: parseInt(item.stepNumber, 10),
       title: item.title,
+      description: item.description,
     }));
     await RecipeSteps.bulkCreate(stepsData);
 
-    res.send({ message: `Przepis o id=${id} został zaktualizowany.` });
+    res.status(200).send({
+      message: `Przepis o id=${id} został zaktualizowany.`,
+      recipeId: id,
+      imageUrl: imageUrl || recipe.imageUrl,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({
-      message: `Błąd podczas aktualizacji przepisu o id=${id}`,
+      message: `Błąd podczas aktualizacji przepisu o id=${id}.`,
     });
   }
 };

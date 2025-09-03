@@ -9,10 +9,15 @@ module.exports = (app) => {
     uploadCloudinaryMiddleware.single("image"),
     recipes.create
   );
+  app.put(
+    "/api/recipes/:id",
+    authMiddleware,
+    uploadCloudinaryMiddleware.single("image"),
+    recipes.update
+  );
   app.get("/api/recipes", recipes.findAll);
   app.get("/api/recipes/user", authMiddleware, recipes.findUserRecipes);
   app.get("/api/recipes/:id", recipes.findOne);
   app.get("/api/recipes/user/ids", authMiddleware, recipes.findUserRecipeIds);
-  app.put("/api/recipes/:id", recipes.update);
   app.delete("/api/recipes/:id", authMiddleware, recipes.delete);
 };

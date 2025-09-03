@@ -11,7 +11,7 @@
           <div class="text-lg font-bold w-6">{{ step.stepNumber }}.</div>
           <div class="flex-1 space-y-3">
             <CInput v-model="step.title" placeholder="Nazwa kroku (np. Przygotuj ciasto)" />
-            <CInput
+            <CTextarea
               v-model="step.description"
               placeholder="Opis (np. Wymieszaj wszystkie suche składniki...)"
             />
@@ -34,6 +34,7 @@
 import type { RecipesCreateRequest } from '@/api/Recipes'
 import RecipesCreateAddNewBtn from './RecipesCreateAddNewBtn.vue'
 import { watch } from 'vue'
+import CTextarea from '@/components/CInput/CTextarea.vue'
 
 const model = defineModel<RecipesCreateRequest>({ required: true })
 

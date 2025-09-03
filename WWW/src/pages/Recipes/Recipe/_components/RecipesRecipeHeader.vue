@@ -37,7 +37,9 @@
           <RouterLink class="mt-0.75" :to="{ name: 'RecipesEdit', params: { id: recipe.id } }"
             ><SquarePen class="w-5 h-5 text-dark-500"
           /></RouterLink>
-          <button class="cursor-pointer"><Trash class="w-5 h-5 text-red-700" /></button>
+          <button class="cursor-pointer" @click="onDelete">
+            <Trash class="w-5 h-5 text-red-700" />
+          </button>
           <CFavouriteButton :recipeId="recipe.id" />
         </div>
       </div>
@@ -47,9 +49,23 @@
 
 <script setup lang="ts">
 import { Utensils, Clock, Users, SquarePen, Trash } from 'lucide-vue-next'
-import type { Recipe } from '@/api/Recipes'
+import { RecipesService, type Recipe } from '@/api/Recipes'
 import CFavouriteButton from '@/components/CButton/CFavouriteButton.vue'
 import { useRouter } from 'vue-router'
+import { useAlert } from '@/composables/useAlert'
 
-defineProps<{ recipe: Recipe }>()
+const alert = useAlert()
+const router = useRouter()
+
+const props = defineProps<{ recipe: Recipe }>()
+
+async function onDelete() {
+  try {
+    await RecipesService.delete(props.recipe.id)
+    alert.show('success', 'Pomyślnie usunięto przepis')
+    router.push({ name: 'Home' })
+  } catch (err) {
+    alert.show('danger', err.response.data.message)
+  }
+}
 </script>
