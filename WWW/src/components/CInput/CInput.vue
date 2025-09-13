@@ -36,7 +36,7 @@ const model = defineModel<string>({ required: true })
 const props = withDefaults(
   defineProps<{
     label?: string
-    id: string
+    id?: string
     type?: string
     placeholder?: string
     rules?: ((val: string) => true | string)[]

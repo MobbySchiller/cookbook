@@ -54,7 +54,7 @@ async function submit() {
       recipeId = response[0].recipe_id
       alert.show('success', 'Pomyślnie utworzono przepis')
     }
-    router.push({ name: 'Recipe', params: { id: recipeId } })
+    setTimeout(() => router.push({ name: 'Recipe', params: { id: recipeId } }), 1200)
   } catch (err) {
     alert.show('danger', err.response.data.message)
   } finally {

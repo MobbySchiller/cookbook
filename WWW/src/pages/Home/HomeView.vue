@@ -6,21 +6,25 @@
     title="Śniadanie"
     :recipes="recipesBreakfast"
     :mealTypeId="RecipesMealTypes.BREAKFAST"
+    :isLoading
   />
   <HomeMealTypeSection
     title="Obiad"
     :recipes="recipesDinner"
     :mealTypeId="RecipesMealTypes.DINNER"
+    :isLoading
   />
   <HomeMealTypeSection
     title="Kolacja"
     :recipes="recipesSupper"
     :mealTypeId="RecipesMealTypes.SUPPER"
+    :isLoading
   />
   <HomeMealTypeSection
     title="Deser"
     :recipes="recipesDessert"
     :mealTypeId="RecipesMealTypes.DESSERT"
+    :isLoading
   />
 </template>
 
@@ -39,6 +43,7 @@ const recipesBreakfast = ref<Recipe[]>([])
 const recipesDinner = ref<Recipe[]>([])
 const recipesSupper = ref<Recipe[]>([])
 const recipesDessert = ref<Recipe[]>([])
+const isLoading = ref<boolean>(false)
 
 async function fetchBreakfast() {
   const response = await RecipesService.search({ mealTypeId: RecipesMealTypes.BREAKFAST, limit: 4 })
@@ -75,6 +80,11 @@ function onSubmit() {
 }
 
 onMounted(async () => {
-  await Promise.all([fetchBreakfast(), fetchDinner(), fetchSupper(), fetchDessert()])
+  try {
+    isLoading.value = true
+    await Promise.all([fetchBreakfast(), fetchDinner(), fetchSupper(), fetchDessert()])
+  } finally {
+    isLoading.value = false
+  }
 })
 </script>
