@@ -1,5 +1,5 @@
 import api from '@/boot/axios'
-import type { LoginRequest, RegisterRequest } from './AuthTypes'
+import type { LoginRequest, RegisterRequest, User } from './AuthTypes'
 
 export const AuthService = {
   register: async (data: RegisterRequest): Promise<void> => {
@@ -18,7 +18,7 @@ export const AuthService = {
     const response = await api.post('/logout')
     return response.data
   },
-  current: async (): Promise<void> => {
+  current: async (): Promise<User> => {
     const response = await api.post('/current')
     return response.data
   },

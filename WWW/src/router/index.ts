@@ -116,8 +116,9 @@ router.beforeEach(async (to, from, next) => {
     '/account-activation',
     '/account-activated',
   ]
-
+  console.log('test1')
   if (!publicRoutes.includes(to.path)) {
+    console.log('test2')
     await userStore.fetchCurrent()
   }
 

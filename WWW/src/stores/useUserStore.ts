@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { AuthService } from '@/api/Auth'
+import { AuthService, type User } from '@/api/Auth'
 import { FavouritesService } from '@/api/Favourites'
 import { RecipesService } from '@/api/Recipes'
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref()
+  const user = ref<User | null>()
   const isCurrentFetched = ref<boolean>(false)
   const favoutiteIds = ref<number[]>()
   const userRecipeIds = ref<number[]>()
@@ -15,11 +15,10 @@ export const useUserStore = defineStore('user', () => {
     try {
       const response = await AuthService.current()
       user.value = response
+      isCurrentFetched.value = true
       await Promise.all([fetchUserRecipeIds(), fetchFavouriteIds()])
     } catch (err) {
       console.log(err)
-    } finally {
-      isCurrentFetched.value = true
     }
   }
 
@@ -41,11 +40,21 @@ export const useUserStore = defineStore('user', () => {
       console.log(err)
     }
   }
+  async function logout() {
+    try {
+      await AuthService.logout()
+      user.value = null
+      isCurrentFetched.value = false
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return {
     user,
     fetchCurrent,
     fetchFavouriteIds,
     isInFavourites,
+    logout,
   }
 })

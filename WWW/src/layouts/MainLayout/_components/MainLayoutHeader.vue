@@ -23,12 +23,13 @@
           >
             Załóż konto
           </RouterLink>
+          <div v-if="user" class="mr-1">Witaj, {{ user.login }}</div>
           <button
             v-if="user"
-            class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none hidden lg:block"
+            class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-2 py-2 lg:py-2.5 text-sm focus:outline-none hidden lg:block"
             @click="handleLogoutBtn"
           >
-            Wyloguj się
+            <LogOut class="w-5 h-5 text-dark-500" />
           </button>
 
           <!-- Hamburger button -->
@@ -143,13 +144,14 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { AuthService } from '@/api/Auth'
 import { useUserStore } from '@/stores/useUserStore'
+import { LogOut } from 'lucide-vue-next'
 
-const { user } = useUserStore()
+const { user, logout } = useUserStore()
 const isMobileMenuOpen = ref(false)
 
 async function handleLogoutBtn() {
   try {
-    await AuthService.logout()
+    await logout()
     location.reload()
   } catch (err) {}
 }

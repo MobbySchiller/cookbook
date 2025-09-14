@@ -1,5 +1,5 @@
 <template>
-  <h2 class="col-span-12 text-2xl font-semibold font-serif mb-3">3. Wypisz kroki gotowania</h2>
+  <h2 class="col-span-12 text-2xl font-serif mb-3">3. Wypisz kroki gotowania</h2>
   <div class="grid grid-cols-12 gap-y-6 gap-x-8 mx-auto">
     <div class="col-span-12 lg:col-span-7">
       <div

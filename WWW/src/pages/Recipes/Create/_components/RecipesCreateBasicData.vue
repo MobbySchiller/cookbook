@@ -1,5 +1,5 @@
 <template>
-  <h2 class="text-2xl font-semibold font-serif mb-3">1. Uzupełnij dane podstawowe</h2>
+  <h2 class="text-2xl font-serif mb-3">1. Uzupełnij dane podstawowe</h2>
   <div class="grid grid-cols-12 gap-y-4 gap-x-10 mx-auto">
     <div class="grid grid-cols-12 gap-4 col-span-12 lg:col-span-7">
       <CInput
