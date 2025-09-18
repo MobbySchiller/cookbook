@@ -1,12 +1,12 @@
 <template>
   <div class="px-4">
-    <div class="mt-8"><RecipesCreateBasicData v-model="model" /></div>
+    <div class="mt-8"><RecipesCreateBasicData v-model="model as RecipesCreateRequest" /></div>
 
     <div class="mt-14">
-      <RecipesCreateIngredients v-model="model" />
+      <RecipesCreateIngredients v-model="model as RecipesCreateRequest" />
     </div>
     <div class="mt-14">
-      <RecipesCreateSteps v-model="model" />
+      <RecipesCreateSteps v-model="model as RecipesCreateRequest" />
     </div>
     <CButtonAccent :loading class="mt-6" @click="submit">Zapisz</CButtonAccent>
   </div>
@@ -31,11 +31,9 @@ const router = useRouter()
 const id = route.params.id as string
 const loading = ref<boolean>(false)
 
-const model = ref<RecipesCreateRequest>({
+const model = ref<Partial<RecipesCreateRequest>>({
   name: '',
   description: '',
-  prepTimeMin: 0,
-  servings: 0,
   image: null,
   ingredients: [{ name: '', quantity: undefined }],
   steps: [{ stepNumber: 1, title: '', description: '' }],

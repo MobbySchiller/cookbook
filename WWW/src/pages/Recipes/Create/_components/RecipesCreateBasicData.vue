@@ -30,7 +30,7 @@
         :rules="[required]"
       />
       <CSelect
-        v-model="model.mealTypeId"
+        v-model="model.mealTypeId as number"
         ref="mealTypeIdRef"
         class="col-span-12 sm:col-span-6"
         label="Rodzaj posiłku"

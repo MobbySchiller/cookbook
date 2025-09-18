@@ -44,7 +44,7 @@ const props = withDefaults(
     label?: string
     type?: string
     placeholder?: string
-    rules?: ((val: string) => true | string)[]
+    rules?: ((val: number) => true | string)[]
   }>(),
   {
     type: 'text',

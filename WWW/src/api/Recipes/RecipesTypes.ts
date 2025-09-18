@@ -8,8 +8,8 @@ export interface RecipesSearchRequest {
 export interface RecipesCreateRequest {
   name: string
   description: string
-  prepTimeMin?: number
-  servings?: number
+  prepTimeMin: number | null
+  servings: number | null
   image?: File | null
   ingredients: RecipeIngredient[]
   steps: RecipeStep[]

@@ -11,7 +11,6 @@
 
     <textarea
       v-model="model"
-      :id="id"
       :placeholder="placeholder"
       :rows="rows"
       :class="[
@@ -30,7 +29,6 @@ const model = defineModel<string>()
 withDefaults(
   defineProps<{
     label?: string
-    id: string
     placeholder?: string
     rows?: number
     errorMessage?: string
